@@ -1,7 +1,10 @@
 import {Link, Outlet, useLocation, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {currentFilm} from "@/services/apiService.js";
-import Loader from "@/components/Loader/Loader.jsx";
+import {lazy} from "react";
+
+const Loader = lazy(() => import('@/components/Loader/Loader.jsx'))
+
 
 const MovieDetailsPage = () => {
     const {id} = useParams();

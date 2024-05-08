@@ -1,10 +1,12 @@
+import {lazy} from "react";
 import {Route, Routes} from "react-router-dom";
 import Layout from "@/layouts/Layout.jsx";
-import HomePage from "@/pages/HomePage/HomePage.jsx";
-import Favorites from "@/pages/SearchPage/SearchPage.jsx";
-import MovieDetailsPage from "@/pages/MovieDetailsPage/MovieDetailsPage.jsx";
-import MovieCast from "@/components/MovieCast/MovieCast.jsx";
-import MovieReview from "@/components/MovieReview/MovieReview.jsx";
+
+const HomePage = lazy(() => import('@/pages/HomePage/HomePage.jsx'))
+const SearchPage = lazy(() => import('@/pages/SearchPage/SearchPage.jsx'))
+const MovieDetailsPage = lazy(() => import('@/pages/MovieDetailsPage/MovieDetailsPage.jsx'))
+const MovieCast = lazy(() => import('@/components/MovieCast/MovieCast.jsx'))
+const MovieReview = lazy(() => import('@/components/MovieReview/MovieReview.jsx'))
 
 const App = () => {
     return (
@@ -16,7 +18,7 @@ const App = () => {
                        element={<HomePage/>}
                 />
                 <Route path='search/'
-                       element={<Favorites/>}
+                       element={<SearchPage/>}
                 />
                 <Route path=':id/'
                        element={<MovieDetailsPage/>}

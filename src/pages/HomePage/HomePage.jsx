@@ -1,11 +1,11 @@
 import {useInfiniteQuery} from "@tanstack/react-query";
 import {fetchFilms} from "@/services/apiService.js";
-import React from "react";
-import MovieList from "@/components/MovieList/MovieList.jsx";
-import MovieItem from "@/components/MovieItem/MovieItem.jsx";
-import Loader from "@/components/Loader/Loader.jsx";
-import LoadMoreBtn from "@/components/LoadMoreBtn/LoadMoreBtn.jsx";
+import React, {lazy} from "react";
 
+const MovieList = lazy(() => import('@/components/MovieList/MovieList.jsx'))
+const MovieItem = lazy(() => import('@/components/MovieItem/MovieItem.jsx'))
+const LoadMoreBtn = lazy(() => import('@/components/LoadMoreBtn/LoadMoreBtn.jsx'))
+const Loader = lazy(() => import('@/components/Loader/Loader.jsx'))
 const HomePage = () => {
     const {
         data,
@@ -26,9 +26,6 @@ const HomePage = () => {
         }
     })
 
-    if (isLoading) {
-        return (<Loader/>)
-    }
 
     if (isError) {
         return <h1> Error {error.message}</h1>
