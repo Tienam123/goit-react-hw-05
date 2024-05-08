@@ -12,19 +12,29 @@ const HomePage = () => {
         fetchNextPage,
         hasNextPage,
         isLoading,
+        isError,
+        error,
         isFetching,
     } = useInfiniteQuery({
         queryKey: ['films'],
         queryFn: fetchFilms,
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages, lastPageParam) => {
-            return lastPageParam + 1
+            if (lastPage.page < lastPage.total_pages) {
+                return lastPageParam + 1
+            }
         }
     })
 
     if (isLoading) {
         return (<Loader/>)
     }
+
+    if (isError) {
+        return <h1> Error {error.message}</h1>
+    }
+
+
     return (
 
         <>
@@ -45,10 +55,13 @@ const HomePage = () => {
 
                         }
                     </MovieList>
-                    <LoadMoreBtn fetchNextPage={fetchNextPage}
-                                 isLoading={isFetching}
-                                 hasNextPage={hasNextPage}
-                    />
+                    {hasNextPage && (
+                        <LoadMoreBtn fetchNextPage={fetchNextPage}
+                                     isLoading={isFetching}
+                                     hasNextPage={hasNextPage}
+                        />
+                    )}
+
                 </div>
             )}
 

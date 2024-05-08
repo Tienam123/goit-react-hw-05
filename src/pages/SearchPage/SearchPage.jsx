@@ -5,6 +5,7 @@ import SearchForm from "@/components/SearchForm/SearchForm.jsx";
 import MovieList from "@/components/MovieList/MovieList.jsx";
 import MovieItem from "@/components/MovieItem/MovieItem.jsx";
 import LoadMoreBtn from "@/components/LoadMoreBtn/LoadMoreBtn.jsx";
+import Loader from "@/components/Loader/Loader.jsx";
 
 
 const SearchPage = () => {
@@ -16,6 +17,8 @@ const SearchPage = () => {
         hasNextPage,
         isLoading,
         isFetching,
+        isError,
+        error
     } = useInfiniteQuery({
         queryKey: [
             'searchMovie',
@@ -25,12 +28,23 @@ const SearchPage = () => {
         initialPageParam: 1,
         enabled: !!query,
         getNextPageParam: (lastPage, pages, lastPageParam) => {
-            return lastPageParam + 1
+            if (lastPage.page < lastPage.total_pages) {
+                return lastPageParam + 1
+            }
         }
     })
     useEffect(() => {
         localStorage.setItem('query', JSON.stringify(query))
     }, [query]);
+
+    if (isError) {
+        return <h1> Error {error.message}</h1>
+    }
+
+
+    if (isLoading) {
+        return <Loader/>
+    }
 
     return (
 
@@ -40,6 +54,7 @@ const SearchPage = () => {
                 <div className='home__container text-center'>
                     <MovieList>
                         {data?.pages.map((page, id) => (
+
                             <React.Fragment key={id}>
                                 {
                                     page.results.map((item, itemID) => (
@@ -53,10 +68,12 @@ const SearchPage = () => {
 
                         }
                     </MovieList>
-                    <LoadMoreBtn fetchNextPage={fetchNextPage}
-                                 isLoading={isFetching}
-                                 hasNextPage={hasNextPage}
-                    />
+                    {hasNextPage && (
+                        <LoadMoreBtn fetchNextPage={fetchNextPage}
+                                     isLoading={isFetching}
+                                     hasNextPage={hasNextPage}
+                        />
+                    )}
                 </div>
             )}
         </>
