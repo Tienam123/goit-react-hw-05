@@ -1,0 +1,11 @@
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    width: 32%;
+    min-height: 520px;
+
+    img {
+        width: 100%;
+        display: block;
+    }
+}
