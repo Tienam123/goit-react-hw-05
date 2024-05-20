@@ -1,6 +1,7 @@
 import {useInfiniteQuery} from "@tanstack/react-query";
 import {fetchFilms} from "@/services/apiService.js";
 import React, {lazy} from "react";
+import ErrorPage from "@/components/ErrorPage/ErrorPage.jsx";
 
 const MovieList = lazy(() => import('@/components/MovieList/MovieList.jsx'))
 const MovieItem = lazy(() => import('@/components/MovieItem/MovieItem.jsx'))
@@ -28,7 +29,15 @@ const HomePage = () => {
 
 
     if (isError) {
-        return <h1> Error {error.message}</h1>
+        return (<>
+            <ErrorPage message={error} />
+        </>)
+    }
+
+    if (isLoading) {
+        return (<>
+            <Loader />
+        </>)
     }
 
 

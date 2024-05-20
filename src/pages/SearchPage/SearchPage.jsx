@@ -15,7 +15,6 @@ const SearchPage = () => {
         fetchNextPage,
         hasNextPage,
         isLoading,
-        isFetching,
         isError,
         error
     } = useInfiniteQuery({
@@ -27,7 +26,7 @@ const SearchPage = () => {
         initialPageParam: 1,
         enabled: !!query,
         getNextPageParam: (lastPage, pages, lastPageParam) => {
-            if (lastPage.page < lastPage.total_pages) {
+            if (lastPage.page <= lastPage.total_pages) {
                 return lastPageParam + 1
             }
         }
@@ -43,7 +42,7 @@ const SearchPage = () => {
     return (
 
         <>
-            <SearchForm setNewQuery={setQuery}/>
+            <SearchForm setNewQuery={setQuery} />
             {!isLoading && (
                 <div className='home__container text-center'>
                     <MovieList>
@@ -64,7 +63,7 @@ const SearchPage = () => {
                     </MovieList>
                     {hasNextPage && (
                         <LoadMoreBtn fetchNextPage={fetchNextPage}
-                                     isLoading={isFetching}
+                                     isLoading={isLoading}
                                      hasNextPage={hasNextPage}
                         />
                     )}

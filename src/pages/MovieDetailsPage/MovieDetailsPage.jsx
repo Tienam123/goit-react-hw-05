@@ -10,14 +10,14 @@ const MovieDetailsPage = () => {
     const {id} = useParams();
     const {
         data,
-        isFetching,
+        isLoading,
     } = useQuery({
         queryFn: () => currentFilm(id),
         queryKey: ['filmById']
     })
     const location = useLocation();
-    if (isFetching) {
-        return (<Loader/>)
+    if (isLoading) {
+        return (<Loader />)
     }
 
     return (
@@ -26,7 +26,7 @@ const MovieDetailsPage = () => {
                 <Link className='py-2 px-5 mt-5 rounded text-white bg-blue-700 inline-block'
                       to={location.state.from}
                 >Вернуться</Link>
-                {!isFetching && (
+                {!isLoading && (
 
                     <div className='mt-10 flex gap-3'>
 
@@ -39,7 +39,9 @@ const MovieDetailsPage = () => {
                                 <ul>
                                     <li className='font-semibold text-gray-500'>Vote/Votes:</li>
                                     <li className='font-semibold text-gray-500'>Popularity:</li>
-                                    <li className='font-semibold text-gray-500'>Original Title:</li>
+                                    <li className='font-semibold text-gray-500'>Original
+                                        Title:
+                                    </li>
                                     <li className='font-semibold text-gray-500'>Genre:</li>
                                 </ul>
                                 <ul>
@@ -78,7 +80,7 @@ const MovieDetailsPage = () => {
                 </ul>
             </div>
             <div className='border-b-2 mt-3 border-solid border-gray-500'></div>
-            <Outlet/>
+            <Outlet />
         </>
     );
 };
