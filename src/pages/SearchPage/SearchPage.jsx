@@ -1,11 +1,10 @@
-import React, {lazy, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {searchMovie} from "@/services/apiService.js";
 import {useInfiniteQuery} from "@tanstack/react-query";
-
-const SearchForm = lazy(() => import('@/components/SearchForm/SearchForm.jsx'))
-const MovieList = lazy(() => import('@/components/MovieList/MovieList.jsx'))
-const MovieItem = lazy(() => import('@/components/MovieItem/MovieItem.jsx'))
-const LoadMoreBtn = lazy(() => import('@/components/LoadMoreBtn/LoadMoreBtn.jsx'))
+import SearchForm from "@/components/SearchForm/SearchForm.jsx";
+import MovieList from "@/components/MovieList/MovieList.jsx";
+import MovieItem from "@/components/MovieItem/MovieItem.jsx";
+import LoadMoreBtn from "@/components/LoadMoreBtn/LoadMoreBtn.jsx";
 
 const SearchPage = () => {
     const [query, setQuery] = useState(JSON.parse(localStorage.getItem('query')) ?? '')
