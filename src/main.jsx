@@ -7,6 +7,7 @@ import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {Toaster} from "react-hot-toast";
 import {BrowserRouter} from "react-router-dom";
+import Loader from "@/components/Loader/Loader.jsx";
 
 const queryClient = new QueryClient()
 
@@ -15,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root'))
             <React.StrictMode>
                 <BrowserRouter>
                     <QueryClientProvider client={queryClient}>
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<Loader />}>
                             <div className='wrapper'>
                                 <App />
                             </div>
