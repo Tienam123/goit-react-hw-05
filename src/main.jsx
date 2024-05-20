@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import App from '@/App.jsx';
@@ -11,20 +11,22 @@ import {BrowserRouter} from "react-router-dom";
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root'))
-    .render(
-        <React.StrictMode>
-            <QueryClientProvider client={queryClient}>
+        .render(
+            <React.StrictMode>
                 <BrowserRouter>
-                    <div className='wrapper'>
-                        <App/>
-                    </div>
-                    <GlobalStyle/>
-                    <ReactQueryDevtools initialIsOpen={false}/>
-                    <Toaster/>
+                    <QueryClientProvider client={queryClient}>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <div className='wrapper'>
+                                <App />
+                            </div>
+                            <GlobalStyle />
+                            <ReactQueryDevtools initialIsOpen={false} />
+                            <Toaster />
+                        </Suspense>
+                    </QueryClientProvider>
                 </BrowserRouter>
-            </QueryClientProvider>
-        </React.StrictMode>,
-    );
+            </React.StrictMode>,
+        );
 
 
 
